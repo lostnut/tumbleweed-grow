@@ -1,6 +1,6 @@
 CC ?= gcc
 CFLAGS = -O3 -MMD -std=c99
-LIBS = 
+LIBS = -lm
 EXE = twdgrow
 
 MKDIR = /bin/mkdir -p
@@ -20,7 +20,7 @@ all: $(BIN_EXE)
 
 $(BIN_EXE): $(OBJS)
 	$(MKDIR) $(@D)
-	$(CC) $(FLAGS) -o $@ $<
+	$(CC) $(FLAGS) -o $@ $< $(LIBS)
 
 -include $(DEPS)
 
