@@ -8,16 +8,16 @@ CFLAGS += -std=c11# C11 standard mode
 CFLAGS += -Werror# turn warnings into errors.
 CFLAGS += -Wall#turn on all warnings
 CFLAGS += -Wextra# turn on extra warnings
-
-# optimization flags
-CFLAGS += -O2# optimization level
-CFLAGS += -ffast-math# fast math mode
-
 # utilities flags
 CFLAGS += -MMD# write dependency file
-
 # libraries flags
 LIBS = -lm
+# optimization flags
+OPT_FLAGS = -O2# optimization level
+OPT_FLAGS += -ffast-math# fast math mode
+# coverage flags
+COV_FLAGS = -coverage
+COV_FLAGS += -O0
 
 #Utilities
 MKDIR = /bin/mkdir -p
@@ -45,15 +45,17 @@ TEST_EXE = $(TEST_DIR)/$(TEST)# test executable path
 TESTS = $(wildcard test/*.c)
 
 #Rules
+all: CFLAGS += $(OPT_FLAGS)
 all: $(BIN_EXE)
 
+test: CFLAGS += $(COV_FLAGS)
 test: $(TEST_EXE)
 
 $(BIN_EXE): $(OBJS) $(MAIN)
 	$(MKDIR) $(@D)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
-$(TEST_EXE): $(OBJS) $(TESTS)
+$(TEST_EXE): $(SRCS) $(TESTS)
 	$(MKDIR) $(@D)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
