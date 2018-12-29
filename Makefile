@@ -4,7 +4,7 @@ CC ?= clang
 
 # compilation flags
 CFLAGS = -pedantic# warn on language extensions
-CFLAGS += -std=c17# C17 standard mode
+CFLAGS += -std=c11# C11 standard mode
 CFLAGS += -Werror# turn warnings into errors.
 CFLAGS += -Wall#turn on all warnings
 CFLAGS += -Wextra# turn on extra warnings
