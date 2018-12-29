@@ -1,6 +1,8 @@
 # Compilation
 # compiler (if defined use 'cc' else use clang)
 CC ?= gcc
+# coverage tool
+COV = gcov
 
 # compilation flags
 CFLAGS = -pedantic# warn on language extensions
@@ -44,12 +46,18 @@ TEST_EXE = $(TEST_DIR)/$(TEST)# test executable path
 #Test files
 TESTS = $(wildcard test/*.c)
 
+#Coverage
+COV_DIR = $(BUILD_DIR)/cov#cov directory
+
 #Rules
 all: CFLAGS += $(OPT_FLAGS)
 all: $(BIN_EXE)
 
 test: CFLAGS += $(COV_FLAGS)
 test: $(TEST_EXE)
+
+cov: 
+	$(COV) -o . $(SRCS)
 
 $(BIN_EXE): $(OBJS) $(MAIN)
 	$(MKDIR) $(@D)
@@ -68,3 +76,4 @@ $(OBJECTS_DIR)/%.o: %.c
 .PHONY : clean
 clean:
 	$(RM) -r $(BUILD_DIR)
+
