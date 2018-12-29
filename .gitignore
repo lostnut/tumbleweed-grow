@@ -57,3 +57,8 @@ compile_commands.json
 
 #tags file
 tags
+
+#coverage files
+*.gcov
+*.gcda
+*.gcno
