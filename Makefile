@@ -31,16 +31,31 @@ BIN_DIR = $(BUILD_DIR)/bin# bin directory
 BIN_EXE = $(BIN_DIR)/$(EXE)# executable path
 
 # Files
-SRCS = $(wildcard src/*.c)
+MAIN = src/main.c
+SRCS = $(filter-out $(MAIN), $(wildcard src/*.c))
 OBJS = $(SRCS:%.c=$(OBJECTS_DIR)/%.o)
 DEPS = $(OBJS:%.o=%.d)
+
+#Tests
+TEST = twdgrow-test# test executable name
+TEST_DIR = $(BUILD_DIR)/test# test direcotory
+TEST_EXE = $(TEST_DIR)/$(TEST)# test executable path
+
+#Test files
+TESTS = $(wildcard test/*.c)
 
 #Rules
 all: $(BIN_EXE)
 
-$(BIN_EXE): $(OBJS)
+test: $(TEST_EXE)
+
+$(BIN_EXE): $(OBJS) $(MAIN)
 	$(MKDIR) $(@D)
-	$(CC) $(FLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+
+$(TEST_EXE): $(OBJS) $(TESTS)
+	$(MKDIR) $(@D)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 -include $(DEPS)
 
