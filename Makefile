@@ -1,6 +1,6 @@
 # Compilation
 # compiler (if defined use 'cc' else use clang)
-CC ?= clang
+CC ?= gcc
 
 # compilation flags
 CFLAGS = -pedantic# warn on language extensions
