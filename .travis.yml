@@ -35,7 +35,8 @@ install:
 script:
 - ./scripts/run-test.sh
 
-after_succes:
+after_success:
+- ./scripts/coverage.sh
 -  bash <(curl -s https://codecov.io/bash)
 
 
