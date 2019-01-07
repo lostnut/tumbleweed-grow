@@ -37,6 +37,4 @@ script:
 
 after_success:
 - ./scripts/coverage.sh
--  bash <(curl -s https://codecov.io/bash)
-
 
